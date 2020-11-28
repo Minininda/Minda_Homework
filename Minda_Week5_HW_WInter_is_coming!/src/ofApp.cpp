@@ -1,6 +1,7 @@
 #include "ofApp.h"
 
 ofPoint a[5050];
+int order=0;
 //--------------------------------------------------------------
 void ofApp::setup(){
 	
@@ -37,6 +38,8 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    if (order%2==0)
+    {
 	for (int i=0; i<25; i++)
 	{
 		Particle p;
@@ -47,7 +50,8 @@ void ofApp::update(){
 		p.mass = ofRandom(.7,1.3);
 		eruption.push_back(p);
 	}
-	
+    }
+    
 	while (eruption.size()>3800)
 	{
 		eruption.erase(eruption.begin());
@@ -100,12 +104,20 @@ void ofApp::draw(){
         ofDrawCone(a[i].x, 120, a[i].z, 50, -140);
     }
 	cam.end();
+    
+    stringstream ss;
+    
+    ss
+    <<"Press Any Key To Control the Snow!"<<endl;
+    
+    ofDrawBitmapStringHighlight(ss.str(), ofVec2f(20,20));
         
 
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    order++;
 
 }
 
