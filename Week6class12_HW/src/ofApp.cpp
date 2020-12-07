@@ -1,13 +1,14 @@
 #include "ofApp.h"
-#define _USE_LIVE_VIDEO
 
 //--------------------------------------------------------------
 void ofApp::setup(){
 
         vidGrabber.setVerbose(true);
-        vidGrabber.setup(320,240);
+    vidGrabber.setup(320,240);
 
-
+    img.load("1.jpg");
+    img.resize(80,60);
+    
 	bLearnBakground = true;
 	threshold = 80;
 }
@@ -21,9 +22,9 @@ void ofApp::update(){
        vidGrabber.update();
 	   bNewFrame = vidGrabber.isFrameNew();
 
-	if (bNewFrame){
-            colorImg.setFromPixels(vidGrabber.getPixels());
-
+	if (bNewFrame)
+    {
+        colorImg.setFromPixels(vidGrabber.getPixels());
         grayImage = colorImg;
 		if (bLearnBakground == true){
 			grayBg = grayImage;
@@ -51,6 +52,9 @@ void ofApp::draw(){
 			ofDrawBitmapString("There",
 				contourFinder.blobs[i].boundingRect.getCenter().x ,
 				contourFinder.blobs[i].boundingRect.getCenter().y );
+            img.draw(contourFinder.blobs[i].boundingRect.getCenter().x,contourFinder.blobs[i].boundingRect.getCenter().y);
+            img.draw(contourFinder.blobs[i].boundingRect.getCenter().x+10,contourFinder.blobs[i].boundingRect.getCenter().y+10);
+            
 		}
     }
 	ofSetHexColor(0xffffff);

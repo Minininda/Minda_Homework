@@ -36,6 +36,7 @@ class ofApp : public ofBaseApp{
 		ofxCvGrayscaleImage 	grayDiff;
 
         ofxCvContourFinder 	contourFinder;
+        ofImage img;
 
 		int 				threshold;
 		bool				bLearnBakground;
